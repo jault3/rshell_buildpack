@@ -31,6 +31,7 @@ open_it() {
 }
 open_it &
 ./ngrok start default &
+sleep 3
 tail -F /app/ngrok.log
 " > $1/ngrok_run.sh
 chmod 777 $1/ngrok_run.sh
