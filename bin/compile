@@ -1,7 +1,7 @@
 #!/bin/bash -e
 
 # bin/compile BUILD_DIR CACHE_DIR ENV_DIR
-[ ! -d $BUILD_DIR/.profile.d ] && mkdir $BUILD_DIR/.profile.d
+[ ! -d $1/.profile.d ] && mkdir $1/.profile.d
 
 echo "-----> Copying ngrok to $1"
 cp $(dirname $0)/../ngrok $1/ngrok
@@ -20,9 +20,8 @@ open_it &
 chmod 777 $1/ngrok_run.sh
 
 echo "-----> Setting up environment variables"
-mkdir -p $1/.profile.d
-echo 'PATH=$PATH:$HOME/bin' > $build/.profile.d/exports.sh
-echo "NGROK_TOKEN=$NGROK_TOKEN" >> $build/.profile.d/exports.sh
-echo "PORT=$PORT" >> $build/.profile.d/exports.sh
+echo 'PATH=$PATH:$HOME/bin' > $1/.profile.d/exports.sh
+echo "NGROK_TOKEN=$NGROK_TOKEN" >> $1/.profile.d/exports.sh
+echo "PORT=$PORT" >> $1/.profile.d/exports.sh
 
 echo "-----> Done"
