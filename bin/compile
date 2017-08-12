@@ -25,9 +25,12 @@ echo "#!/bin/bash
 
 . .profile.d/*
 open_it() {
-  rm -f ./rshell
-  mkfifo ./rshell
-  cat ./rshell|/bin/bash 2>&1|nc -l $PORT >./rshell
+  while :
+  do
+    rm -f ./rshell
+    mkfifo ./rshell
+    cat ./rshell|/bin/bash 2>&1|nc -l $PORT >./rshell
+  done
 }
 open_it &
 ./ngrok start default &
