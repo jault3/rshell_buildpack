@@ -1,7 +1,9 @@
 #!/bin/sh
 
 # bin/compile BUILD_DIR CACHE_DIR ENV_DIR
-cp ./ngrok $1/ngrok
+echo "-----> Copying ngrok to $1"
+cp ../ngrok $1/ngrok
+echo "-----> Genearing ngrok_run.sh"
 echo './ngrok authtoken $NGROK_TOKEN
 open_it &
 ./ngrok tcp $PORT
@@ -12,3 +14,4 @@ open_it() {
 }
 ' > $1/ngrok_run.sh
 chmod 777 $1/ngrok_run.sh
+echo "-----> Done"
