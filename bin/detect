@@ -1,0 +1,9 @@
+#!/bin/sh
+
+# bin/detect BUILD_DIR
+if [ -f $1/rshell.sh ]; then
+  echo RShell
+  exit 0
+else
+  exit 1
+fi
