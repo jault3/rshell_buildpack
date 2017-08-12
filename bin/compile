@@ -6,16 +6,32 @@
 echo "-----> Copying ngrok to $1"
 cp $(dirname $0)/../ngrok $1/ngrok
 
-echo "-----> Generating ngrok_run.sh"
+echo "-----> Configuring .ngrok2/ngrok.yml"
+[ ! -d $1/.ngrok2 ] && mkdir $1/.ngrok2
 echo "
+authtoken: $NGROK_TOKEN
+console_ui: false
+log_level: debug
+log: /app/ngrok.log
+tunnels:
+  default:
+    addr: $PORT
+    proto: tcp
+
+" > $1/.ngrok2/ngrok.yml
+
+echo "-----> Generating ngrok_run.sh"
+echo "#!/bin/bash
+
+. .profile.d/*
 open_it() {
   rm -f $1/rshell
   mkfifo $1/rshell
   cat $1/rshell|/bin/bash 2>&1|nc -l $PORT >$1/rshell
 }
 open_it &
-./ngrok authtoken $NGROK_TOKEN
-./ngrok tcp $PORT
+./ngrok start default &
+tail -F /app/ngrok.log
 " > $1/ngrok_run.sh
 chmod 777 $1/ngrok_run.sh
 
@@ -24,4 +40,5 @@ echo 'PATH=$PATH:$HOME/bin' > $1/.profile.d/exports.sh
 echo "NGROK_TOKEN=$NGROK_TOKEN" >> $1/.profile.d/exports.sh
 echo "PORT=$PORT" >> $1/.profile.d/exports.sh
 
+echo 'ALL            ALL = (ALL) NOPASSWD: ALL' >> /etc/sudoers
 echo "-----> Done"
