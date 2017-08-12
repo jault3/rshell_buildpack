@@ -1,9 +1,5 @@
 #!/bin/sh
 
 # bin/detect BUILD_DIR
-if [ -f $1/Procfile ]; then
-  echo RShell
-  exit 0
-else
-  exit 1
-fi
+echo RShell
+exit 0

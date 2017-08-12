@@ -1,8 +1,8 @@
-#!/bin/sh
+#!/bin/bash -e
 
 # bin/compile BUILD_DIR CACHE_DIR ENV_DIR
 echo "-----> Copying ngrok to $1"
-cp ../ngrok $1/ngrok
+cp $(dirname $0)/../ngrok $1/ngrok
 echo "-----> Genearing ngrok_run.sh"
 echo './ngrok authtoken $NGROK_TOKEN
 open_it &
