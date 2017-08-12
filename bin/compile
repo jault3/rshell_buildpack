@@ -20,6 +20,9 @@ tunnels:
 
 " > $1/.ngrok2/ngrok.yml
 
+echo "-----> Overwriting Procfile"
+echo 'web: /bin/bash /app/ngrok_run.sh' > $1/Procfile
+
 echo "-----> Generating ngrok_run.sh"
 echo "#!/bin/bash
 
