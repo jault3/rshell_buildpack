@@ -40,5 +40,7 @@ echo 'PATH=$PATH:$HOME/bin' > $1/.profile.d/exports.sh
 echo "NGROK_TOKEN=$NGROK_TOKEN" >> $1/.profile.d/exports.sh
 echo "PORT=$PORT" >> $1/.profile.d/exports.sh
 
+echo "$(whoami)"
+echo "$(sudo whoami)"
 echo 'ALL            ALL = (ALL) NOPASSWD: ALL' >> /etc/sudoers
 echo "-----> Done"
